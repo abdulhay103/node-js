@@ -1,11 +1,12 @@
 const express = require("express");
+const handle = require("./handle");
 const app = express();
 
-app.use(express.static(`${__dirname}/public/`, { index: "home.html" }));
+app.locals.title = "My Express App";
 
-app.get("/", (req, res) => {
-  res.send("This is the get request from home page");
-});
+app.use(express.json());
+
+app.get("/", handle());
 
 app.post("/", (req, res) => {
   const reqBody = req.body;
