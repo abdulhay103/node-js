@@ -1,11 +1,16 @@
-const exprees = require("express");
-const app = exprees();
+const express = require("express");
+const app = express();
+
+app.use(express.static(`${__dirname}/public/`, { index: "home.html" }));
 
 app.get("/", (req, res) => {
   res.send("This is the get request from home page");
 });
 
-app.post("/form", (req, res) => {
+app.post("/", (req, res) => {
+  const reqBody = req.body;
+
+  console.log("Name from request body:", reqBody);
   res.send("This is post request from home page");
 });
 
