@@ -1,16 +1,21 @@
 const express = require("express");
-const handle = require("./handle");
 const app = express();
-
-app.locals.title = "My Express App";
+const admin = express();
 
 app.use(express.json());
 
-app.get("/", handle());
+admin.get("/dashboard", (req, res) => {
+  console.log(admin.mountpath);
+  res.send("This is the get request from admin dashboard");
+});
+app.get("/", (req, res) => {
+  res.send("This is the get request from client page");
+});
+
+app.use("/admin", admin);
 
 app.post("/", (req, res) => {
   const reqBody = req.body;
-
   console.log("Name from request body:", reqBody);
   res.send("This is post request from home page");
 });
