@@ -1,16 +1,13 @@
 const express = require("express");
 const app = express();
+const blog = express();
+const blogAdmin = express();
 
-app.use(express.json());
+app.use("/blog", blog);
+blog.use("/admin", blogAdmin);
 
-app.param("id", (req, res, next, id) => {
-  const user = { id: id, name: "User" + id };
-  req.userDetails = user;
-  next();
-});
-
-app.get("/user/:id", (req, res) => {
-  console.log("User Details:", req.userDetails);
+app.get("/", (req, res) => {
+  console.dir(blogAdmin.path());
   res.send("This is get request from home page");
 });
 0;
