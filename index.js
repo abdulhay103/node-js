@@ -1,21 +1,20 @@
 const express = require("express");
 const app = express();
-const blog = express();
-const blogAdmin = express();
 
-app.use("/blog", blog);
-blog.use("/admin", blogAdmin);
-
-app.get("/", (req, res) => {
-  console.dir(blogAdmin.path());
-  res.send("This is get request from home page");
-});
-0;
-app.post("/", (req, res) => {
-  const reqBody = req.body;
-  console.log("Name from request body:", reqBody);
-  res.send("This is post request from home page");
-});
+app
+  .route("/about/mission")
+  .get((req, res) => {
+    res.send("Our mission is to provide quality service.qq");
+  })
+  .post((req, res) => {
+    res.send("Mission statement updated.");
+  })
+  .put((req, res) => {
+    res.send("Mission statement replaced.");
+  })
+  .delete((req, res) => {
+    res.send("Mission statement deleted.");
+  });
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
