@@ -1,19 +1,19 @@
 const express = require("express");
 const app = express();
-const admin = express();
 
 app.use(express.json());
 
-admin.get("/dashboard", (req, res) => {
-  console.log(admin.mountpath);
-  res.send("This is the get request from admin dashboard");
-});
-app.get("/", (req, res) => {
-  res.send("This is the get request from client page");
+app.param("id", (req, res, next, id) => {
+  const user = { id: id, name: "User" + id };
+  req.userDetails = user;
+  next();
 });
 
-app.use("/admin", admin);
-
+app.get("/user/:id", (req, res) => {
+  console.log("User Details:", req.userDetails);
+  res.send("This is get request from home page");
+});
+0;
 app.post("/", (req, res) => {
   const reqBody = req.body;
   console.log("Name from request body:", reqBody);
